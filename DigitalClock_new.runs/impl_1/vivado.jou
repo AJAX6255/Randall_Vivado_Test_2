@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Sun Apr 14 14:05:01 2024
+# Process ID: 1848
+# Current directory: E:/IIT BBS/2nd Year/4th Semester/DEC lab/vivado/DigitalClock_new/DigitalClock_new.runs/impl_1
+# Command line: vivado.exe -log DigitalClock.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source DigitalClock.tcl -notrace
+# Log file: E:/IIT BBS/2nd Year/4th Semester/DEC lab/vivado/DigitalClock_new/DigitalClock_new.runs/impl_1/DigitalClock.vdi
+# Journal file: E:/IIT BBS/2nd Year/4th Semester/DEC lab/vivado/DigitalClock_new/DigitalClock_new.runs/impl_1\vivado.jou
+# Running On: Ayush2023, OS: Windows, CPU Frequency: 3187 MHz, CPU Physical cores: 4, Host memory: 16952 MB
+#-----------------------------------------------------------
+source DigitalClock.tcl -notrace

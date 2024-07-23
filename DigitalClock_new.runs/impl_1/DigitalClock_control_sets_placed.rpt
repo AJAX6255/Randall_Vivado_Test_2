@@ -1,0 +1,97 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Sun Apr 14 14:05:35 2024
+| Host         : Ayush2023 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file DigitalClock_control_sets_placed.rpt
+| Design       : DigitalClock
+| Device       : xc7a35ti
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    19 |
+|    Minimum number of control sets                        |    19 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |   102 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    19 |
+| >= 0 to < 4        |     7 |
+| >= 4 to < 6        |     1 |
+| >= 6 to < 8        |     0 |
+| >= 8 to < 10       |     0 |
+| >= 10 to < 12      |     2 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     9 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              34 |           29 |
+| No           | No                    | Yes                    |               1 |            1 |
+| No           | Yes                   | No                     |              28 |            9 |
+| Yes          | No                    | No                     |              18 |            9 |
+| Yes          | No                    | Yes                    |              76 |           36 |
+| Yes          | Yes                   | No                     |              77 |           23 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++---------------------------------+-----------------------+------------------------------+------------------+----------------+--------------+
+|           Clock Signal          |     Enable Signal     |       Set/Reset Signal       | Slice Load Count | Bel Load Count | Bels / Slice |
++---------------------------------+-----------------------+------------------------------+------------------+----------------+--------------+
+|  nolabel_line349/DP_reg_i_1_n_0 |                       |                              |                1 |              1 |         1.00 |
+|  CLKOUT_reg_n_0_BUFG            |                       |                              |                1 |              1 |         1.00 |
+|  CLK_IBUF_BUFG                  | count[25]_i_2_n_0     |                              |                1 |              1 |         1.00 |
+|  CLKOUT10MS_reg_n_0_BUFG        |                       |                              |                1 |              1 |         1.00 |
+|  CLKOUT10MS_reg_n_0_BUFG        |                       | RESETTIMER_IBUF              |                1 |              1 |         1.00 |
+|  AMPM1_out                      |                       |                              |                1 |              1 |         1.00 |
+|  CLKOUT300MS_reg_n_0            |                       |                              |                1 |              3 |         3.00 |
+|  CLK_IBUF_BUFG                  |                       |                              |                4 |              5 |         1.25 |
+|  CLKOUT10MS_reg_n_0_BUFG        |                       | timercount[10]_i_1_n_0       |                4 |             11 |         2.75 |
+|  CLKOUT10MS_reg_n_0_BUFG        | countTimerBeep        | RESETTIMER_IBUF              |                4 |             11 |         2.75 |
+|  CLKOUT_reg_n_0_BUFG            | ALARM_IBUF            |                              |                8 |             17 |         2.12 |
+|  CLKOUT_reg_n_0_BUFG            | CountSec[16]_i_1_n_0  | RESET_IBUF                   |               14 |             17 |         1.21 |
+|  CLK_IBUF_BUFG                  |                       | nolabel_line349/anode_select |                5 |             17 |         3.40 |
+| ~ONOFF_IBUF_BUFG                |                       |                              |               20 |             22 |         1.10 |
+|  CLKOUT10MS_reg_n_0_BUFG        | CountSec20            | RESETSTOPWATCH_IBUF          |                6 |             24 |         4.00 |
+|  CLKOUT10MS_reg_n_0_BUFG        | CountSec4[23]_i_1_n_0 | RESETTIMER_IBUF              |               12 |             24 |         2.00 |
+|  CLK_IBUF_BUFG                  | count[25]_i_2_n_0     | count[25]_i_1_n_0            |                7 |             25 |         3.57 |
+|  CLK_IBUF_BUFG                  | p_0_in                | CLKOUT10MS                   |                8 |             26 |         3.25 |
+|  CLK_IBUF_BUFG                  | p_0_in                | CLKOUT300MS                  |                8 |             26 |         3.25 |
++---------------------------------+-----------------------+------------------------------+------------------+----------------+--------------+
+
+
