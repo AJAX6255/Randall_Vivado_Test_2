@@ -1,6 +1,6 @@
 # Digital Clock Design Using Basys 3 Board
 
-This repository contains the Verilog code and related files for designing a digital clock in a 24-hour format, implemented and demonstrated using the Basys 3 FPGA board. The project is part of the Digital Electronic Circuits Lab (EC2P004) course at IIT Bhubaneswar.
+This repository contains the Verilog code and related files for designing a digital clock in a 24-hour format, implemented and demonstrated using the Basys 3 FPGA board.
 
 ## Features
 
