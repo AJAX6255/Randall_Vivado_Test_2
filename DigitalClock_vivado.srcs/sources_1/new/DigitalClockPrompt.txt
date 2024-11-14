@@ -1,0 +1,39 @@
+For generating an ideal prompt that reflects the provided Vivado code for the DigitalClock module as closely as possible, consider this detailed guidance:
+
+Ideal Prompt for Generating Similar Vivado Code:
+"Create a Verilog module named DigitalClock for an FPGA-based clock system with the following characteristics:
+
+Inputs:
+
+Control signals: ONOFF (main power), CLOCKMODE (toggle between clock modes), RESET (general reset), PRESET (preset values).
+Time control: LEFT, RIGHT, UP, DOWN for adjusting time, stopwatch, alarm, and timer.
+Stopwatch controls: STOPWATCH, PAUSESTOPWATCH, RESETSTOPWATCH for basic stopwatch functions.
+Alarm controls: ALARM, ONOFFALARM to manage alarm settings and activation.
+Timer controls: TIMER, SETTIMER, RESETTIMER, ONOFFTIMER for timer functionality.
+Outputs:
+
+Anode and segment outputs: Anode_Activate (4-bit) to activate the clock anodes and LED_out (7-bit) for displaying digits on a 7-segment display.
+Miscellaneous: DP for the decimal point, beep to trigger an alarm sound, AMPM to indicate AM/PM for 12-hour mode.
+Mode indicators: mode (2-bit) output to represent different operating modes (e.g., clock, stopwatch, alarm, timer).
+Functionality:
+
+Implement multiple clocks (1s, 0.3s, 0.01s) using clock division and counting registers. For instance, a 50 MHz input clock generates a 1s pulse (CLKOUT), a 0.3s pulse (CLKOUT300MS), and a 0.01s pulse (CLKOUT10MS).
+Count and time adjustment: Manage seconds, minutes, and hours counters with configurable increments based on the UP and DOWN inputs.
+Stopwatch and Timer: Enable basic stopwatch functionality with pause and reset options. For the timer, include countdown functionality, and trigger an output beep when the timer completes.
+Alarm setting and control: Set the alarm time and enable a beep sound when the current time matches the alarm time.
+Use modular state-based functionality in mode for various operational modes:
+Mode 00 for clock, 01 for stopwatch, 10 for alarm, and 11 for timer.
+Display Formatting: For each mode, format h1, h2, m1, m2, s1, s2 for segmented display output based on the current mode and values.
+Submodule Integration:
+
+Include a submodule sseg for controlling 4-digit 7-segment display refreshing with digit multiplexing.
+sseg inputs: CLK, ones, tens, hundreds, thousands, xpos (display position).
+sseg outputs: anode activation, 7-segment values, and decimal point control.
+Additional Details:
+
+Set initial states for outputs and counters as required by reset conditions.
+Include modular always blocks with conditions based on posedge CLK, RESET, and each secondary clock (1s, 0.3s, 0.01s).
+Use consistent register naming and modular always blocks to manage counter increments and display updates based on time.
+Note: Ensure correct timing constraints for stable operation on an FPGA, especially regarding the multiple internal clocks and multiplexed displays."
+
+This prompt offers a comprehensive outline to capture the DigitalClock’s key requirements and internal clock structures, along with clear design expectations to reproduce similar functionality and structure.
