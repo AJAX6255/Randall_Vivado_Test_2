@@ -22,7 +22,7 @@ This repository contains the Verilog code and related files for designing a digi
 
 1. Clone the repository:
    ```bash
-   git clone [(https://github.com/AJAX6255/Randall_Vivado_Test_2/blob/main/README.md)]
+   git clone https://github.com/AJAX6255/Randall_Vivado_Test_2
    ```
 2. Open the project in Vivado.
 3. Synthesize, implement, and generate the bitstream.
