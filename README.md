@@ -91,27 +91,257 @@ To use ChatGPT effectively for generating VHDL code for the Basys 3 stopwatch pr
 
 ### `seven_segment_display.v`
 **Prompt Example**:
-> "Generate VHDL code for a `seven_segment_display` module for the Basys 3 board. This module should take a 4-bit binary input and display it on a four-digit seven-segment display. Please include multiplexing to display four different digits sequentially, refreshing fast enough for a continuous display effect."
+> Superior Prompt for Generating a Seven-Segment Display Module in Verilog
+"Write a Verilog module named seven_segment_display designed for the Basys 3 FPGA board. The module should meet the following requirements:
+
+Inputs:
+clk: A 100 MHz clock signal provided by the Basys 3 board.
+rst: An active-high synchronous reset signal.
+number: A 16-bit input representing a 4-digit BCD value, with each 4-bit group corresponding to a digit (from least significant to most significant).
+
+Outputs:
+seg: A 7-bit output (a-g) controlling the segments of the seven-segment display.
+an: A 4-bit output enabling the anodes of the four digits.
+
+Functional Requirements:
+Implement time-multiplexing to display all four digits on a single 7-segment display.
+Use a clock divider to derive a refresh rate of approximately 1 kHz from the 100 MHz input clock, ensuring smooth and flicker-free operation.
+Include a BCD-to-7-segment decoder that converts 4-bit BCD inputs into the appropriate seg signals for display.
+Sequentially activate each digit’s anode (an[3:0]) in sync with its respective BCD value, ensuring only one digit is active at a time.
+Handle reset by initializing outputs to a known, stable state.
+
+Design Constraints:
+Fully synchronous design to ensure reliable behavior under Vivado synthesis.
+Avoid glitches by properly synchronizing anode activation and segment updates.
+
+Code Requirements:
+Parameterize the clock divider for flexibility in adapting to different input clock frequencies.
+Use separate always blocks for clock division, digit multiplexing, and segment decoding for modular and maintainable code.
+Include comprehensive comments in the header and throughout the code to describe module functionality and each logical block.
+
+Documentation and Testing:
+Include a detailed module header describing:
+Inputs, outputs, and their functions.
+Purpose of the module and its application in FPGA-based designs.
+
+Provide a simulation testbench to:
+Verify correct decoding of all BCD digits (0–9) to their 7-segment representation.
+Test multiplexing to ensure smooth and accurate digit cycling.
+Validate reset functionality and ensure all outputs are initialized correctly.
+Confirm the refresh rate is approximately 1 kHz.
+The resulting Verilog code should be clean, efficient, and optimized for real-world FPGA implementation, such as digital clocks, counters, or scoreboards on the Basys 3 board."
 
 ### `clock_divider.v`
 **Prompt Example**:
-> "Write VHDL code for a `clock_divider` module that takes the 100 MHz clock signal from the Basys 3 board and divides it down to a 1 Hz signal for timing purposes. This 1 Hz clock will be used by the stopwatch logic to update the time once per second."
+> Superior Prompt for Generating a Clock Divider Module in Verilog
+"Write a Verilog module named clock_divider for use with the Basys 3 FPGA board. The module should meet the following requirements:
+
+Inputs:
+clk_in: A 100 MHz input clock signal sourced from the Basys 3 board.
+reset: An active-high synchronous reset signal to reinitialize the divider.
+
+Output:
+clk_out: A divided clock signal output at 1 Hz for timing purposes.
+
+Functional Details:
+The module should divide the 100 MHz input clock to produce a clean and stable 1 Hz clock output.
+Implement the division using a counter that counts the input clock cycles and toggles the output at the correct intervals.
+Ensure synchronous operation throughout the module for reliable synthesis and timing.
+Avoid glitches in the clk_out signal by maintaining proper synchronization.
+
+Vivado and FPGA Best Practices:
+Use FPGA-friendly constructs that ensure compatibility with Vivado synthesis tools.
+Adhere to timing constraints to meet 100 MHz input clock requirements.
+
+Parameterization:
+Include a parameter for the division factor, enabling future scalability for other clock frequencies (e.g., 50 MHz or 25 MHz input clocks).
+
+Code Requirements:
+Provide a well-structured design with descriptive comments for each code block.
+Include a clear header comment describing the module's purpose, inputs, outputs, and parameters.
+Write clean and modular code to facilitate readability and future modifications.
+
+Documentation and Simulation:
+Provide inline comments to describe counter behavior and clock toggling logic.
+
+Include a simulation testbench that:
+Validates the 1 Hz clock output against the 100 MHz input.
+Verifies reset functionality and output clock stability.
+Tests parameterized division values to demonstrate flexibility.
+The module should be efficient, accurate, and ready for implementation on the Basys 3 board for stopwatch or timer applications."
 
 ### `buttonDebouncer.v`
 **Prompt Example**:
-> "Create a `buttonDebouncer` VHDL module to handle the Basys 3 start/stop and reset buttons. The module should debounce the inputs to provide stable signals, avoiding false triggers from mechanical noise in the buttons."
+> Superior Prompt for Generating Vivado Code for buttonDebouncer
+"Write a Verilog module named buttonDebouncer optimized for implementation on a Basys 3 FPGA board to handle the debouncing of mechanical push buttons. The module should meet the following requirements:
+
+Inputs:
+clk: A clock signal at 100 MHz (the typical clock frequency of Basys 3).
+reset: An active-high synchronous reset signal to initialize the module.
+button_in: The raw button signal prone to mechanical noise and bouncing.
+Output:
+button_out: A stable, debounced signal ready for use in subsequent modules.
+
+Functional Requirements:
+Use a counter-based approach to filter out bouncing and noise.
+Introduce a debounce delay of 20 ms, which aligns with the Basys 3 clock.
+Ensure edge detection for reliable transition handling.
+Maintain a robust synchronous reset behavior.
+
+Design Constraints:
+Fully synchronous design, avoiding asynchronous elements.
+Parameterize the debounce delay for flexibility.
+
+Vivado Synthesis Compatibility:
+Avoid inferred latches or combinatorial loops.
+Ensure timing constraints are met under Vivado synthesis and implementation flow.
+
+Documentation:
+Include a comment header that describes module functionality, inputs, outputs, and configuration options.
+Provide inline comments explaining the purpose of each part of the code.
+Additionally, generate a simulation testbench for the buttonDebouncer module that:
+
+Introduces noisy button input patterns.
+Verifies correct output behavior under debounce delay.
+Tests reset functionality and timing constraints.
+The module should be clean, efficient, and follow best practices for FPGA-based Verilog design."
 
 ### `stopwatch.v`
 **Prompt Example**:
-> "Develop VHDL code for a `stopwatch` module that implements start/stop and reset functionality. The stopwatch should increment time in seconds using the 1 Hz clock from the `clock_divider` and reset to zero when the reset signal is active. Include `start_stop` and `reset` inputs."
+> Superior Prompt for Generating a Stopwatch Module in Verilog
+"Write a Verilog module named stopwatch for implementation on an FPGA board such as the Basys 3. The module should provide a stopwatch functionality with the following specifications:
+
+Inputs:
+clk: A 1 Hz clock signal generated from a clock divider.
+rst: An active-high synchronous reset signal that initializes the stopwatch to zero.
+start_stop: A debounced button input to toggle between start and stop states.
+reset_button: A debounced button input to reset the stopwatch time to zero.
+
+Outputs:
+time_out: A 16-bit output representing the stopwatch time in BCD format (HH
+), suitable for direct use with a seven-segment display.
+
+Functional Requirements:
+Implement a state machine to manage the stopwatch's operation:
+Idle: Hold the current time when stopped.
+Running: Increment the time every second when running.
+Reset: Clear the time to 00:00 when reset_button is pressed.
+Increment the time in proper BCD format:
+Increment seconds and roll over to 00 after 59.
+Increment minutes and roll over to 00 after 59.
+Increment hours and roll over to 00 after 99.
+Use the 1 Hz clk as the base timing signal to update the stopwatch every second.
+Debounced inputs for start_stop and reset_button to avoid erratic behavior.
+
+Design Constraints:
+Fully synchronous design to ensure Vivado compatibility.
+Avoid inferred latches or asynchronous behavior.
+Design for efficient use of FPGA resources, minimizing area and logic utilization.
+
+Code Requirements:
+Use modular code with separate always blocks for state machine logic, time counting, and BCD formatting.
+Include a clear and detailed header comment describing:
+Module purpose.
+Input and output signals with their roles.
+High-level operation and assumptions (e.g., clock frequency).
+Add inline comments to explain critical logic such as state transitions, time rollover, and BCD handling.
+Documentation and Simulation:
+
+Provide a simulation testbench that:
+Tests start_stop functionality to toggle between running and idle states.
+Verifies proper time incrementation and rollovers (e.g., 59:59 to 00:00).
+Tests reset_button to ensure time resets to zero.
+Confirms output stability and correctness under various input scenarios.
+Include detailed documentation for integrating this module with a seven-segment display driver.
+The resulting module should be clean, maintainable, and optimized for FPGA implementation, supporting accurate stopwatch functionality on the Basys 3 or similar boards."
 
 ### `top_level.v`
 **Prompt Example**:
-> "Write a `top_level` VHDL module that integrates the `seven_segment_display`, `clock_divider`, `buttonDebouncer`, and `stopwatch` modules to create a functioning stopwatch. This module should connect the debounced button signals, handle the divided clock signal, and display the stopwatch time on the Basys 3’s seven-segment display."
+> Superior Prompt for Generating a Top-Level Module in Verilog
+"Write a Verilog module named top_level to integrate multiple functional submodules into a complete stopwatch system designed for the Basys 3 FPGA board. The module should meet the following specifications:
+
+Inputs:
+clk: A 100 MHz clock signal sourced from the Basys 3 board.
+rst: An active-high synchronous reset signal for the entire system.
+button0: A raw button input to toggle the stopwatch between start and stop modes.
+button1: A raw button input to reset the stopwatch time.
+
+Outputs:
+seg: A 7-bit output driving the segments (a-g) of the seven-segment display.
+an: A 4-bit output controlling the anodes of the four digits on the display.
+
+Functional Requirements:
+Integrate the following submodules:
+Clock Divider:
+Divide the 100 MHz clock to generate a 1 Hz clock for the stopwatch timing and a 1 kHz clock for display multiplexing.
+Button Debouncer:
+Debounce the raw inputs button0 and button1 to ensure stable signals for the stopwatch.
+Stopwatch:
+Implement start/stop functionality triggered by the debounced button0.
+Reset the stopwatch time to zero when button1 is pressed.
+Output time in BCD format (HH
+) for display.
+Seven-Segment Display Driver:
+Accept the BCD time output from the stopwatch.
+Use the 1 kHz clock to multiplex the four digits of the display for smooth, flicker-free operation.
+
+Design Constraints:
+Ensure all logic is fully synchronous, adhering to FPGA best practices for timing closure and synthesis compatibility in Vivado.
+Avoid glitches in output signals by ensuring proper synchronization across clock domains.
+Use modular design to facilitate easy debugging and future expansion.
+
+Code Requirements:
+Provide clear and descriptive comments for each section of the code, including the functionality of input/output signals and submodule connections.
+Include a comprehensive header comment detailing the purpose of the module, its inputs and outputs, and the role of each integrated submodule.
+Parameterize the clock divider settings to allow flexibility for different input clock frequencies.
+Documentation and Simulation:
+
+Provide a simulation testbench to:
+Verify the integration of all submodules, ensuring seamless interaction.
+Test the system’s response to various button input sequences, including start, stop, and reset.
+Validate that the display correctly shows the time output from the stopwatch in all scenarios.
+Confirm that the display refresh rate is approximately 1 kHz and that the stopwatch increments every second.
+The resulting top_level module should be efficient, robust, and easy to integrate into the Basys 3 FPGA workflow. It should showcase best practices in modular design and provide reliable stopwatch functionality for practical applications."
 
 ## 3. Simulation Testbench: `top_level_tb.v`
 **Prompt Example**:
-> "Generate a `top_level_tb` testbench for the `top_level` module in VHDL. This testbench should simulate the functionality of the stopwatch by providing stimulus for the start/stop and reset buttons and monitoring the seven-segment display outputs to verify correct time progression."
+> Superior Prompt for Generating a Testbench for top_level Module in Verilog
+"Write a Verilog testbench named top_level_tb to simulate and validate the functionality of the top_level module for a stopwatch system implemented on the Basys 3 FPGA board. The testbench should thoroughly test all aspects of the module with the following specifications:
+
+Inputs:
+Simulate a 100 MHz clock signal (clk) to match the Basys 3 system clock.
+Provide a rst signal to initialize and reset the stopwatch system.
+Simulate button inputs (button0 for start/stop and button1 for reset) with realistic timing to mimic user interaction.
+
+Outputs:
+Observe the seg and an outputs to verify that the seven-segment display correctly shows the stopwatch time and operates without flickering.
+
+Functional Requirements:
+Simulate the following scenarios:
+Assert and deassert rst to verify system initialization and reset functionality.
+Simulate a start button press (button0) to begin stopwatch counting and validate time progression.
+Simulate a second press of button0 to stop the stopwatch and confirm that counting halts.
+Test the reset button (button1) during operation and idle states to confirm the time resets to 00:00.
+Verify that the seven-segment display refreshes smoothly without flicker or glitches.
+
+Timing Considerations:
+Generate a 100 MHz clock using a forever loop in an initial block.
+Apply delays between button press and release actions to ensure realistic testing of the debouncer and stopwatch functionality.
+Allow sufficient simulation time for observing stopwatch counting and behavior during each scenario.
+Code Requirements:
+Include a comprehensive header describing:
+The purpose of the testbench.
+The test scenarios and expected results.
+Provide inline comments explaining each step of the stimulus process.
+Use $monitor or $display to log significant simulation events for debugging purposes.
+End the simulation gracefully using $stop or $finish after completing all test cases.
+Validation Goals:
+Confirm proper initialization of the top_level module.
+Validate the start/stop functionality controlled by button0.
+Ensure the reset behavior of button1 clears the stopwatch time to zero.
+Check that the outputs (seg and an) correctly represent the current stopwatch time in HH
+format.
+This testbench should be modular, robust, and well-documented to ensure that the top_level module operates as expected under all test conditions and integrates seamlessly with the Basys 3 FPGA environment."
 
 ## 4. Testing and Iteration
 After generating code, you may need to test it in Vivado and identify issues or optimizations. You can use ChatGPT to refine specific parts by describing the problems encountered.
